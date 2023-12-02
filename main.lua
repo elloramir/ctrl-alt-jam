@@ -1,4 +1,5 @@
 local level = require("level")
+local camera = require("camera")
 local Image = require("image")
 
 local screen
@@ -7,9 +8,10 @@ local motion = 1
 
 function love.load()
 	-- game frame buffer
-	love.graphics.setDefaultFilter("nearest", "nearest")
+	-- love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setLineStyle("rough")
 	screen = love.graphics.newCanvas(WIDTH, HEIGHT)
+	screen:setFilter("nearest", "nearest")
 
 	-- load game assets
 	IMG_PLAYER_IDLE = Image("assets/player-idle.png")
@@ -28,6 +30,7 @@ end
 
 function love.update(dt)
 	dt = dt * motion
+	camera.update(dt)
 	level.update(dt)
 end
 
@@ -42,15 +45,31 @@ local function draw_debug_info()
 	love.graphics.print(string.format("ett: %d", #level.entities), 5, padding*2)
 end
 
+local function draw_grid()
+	for y=0, HEIGHT-TILE_SIZE, TILE_SIZE do
+		for x=0, WIDTH-TILE_SIZE, TILE_SIZE do
+			if (x/TILE_SIZE+y/TILE_SIZE)%2 == 0 then
+				love.graphics.setColor(0.2, 0, 0.4)
+			else
+				love.graphics.setColor(0.1, 0.2, 0.3)
+			end
+			love.graphics.rectangle("fill", x, y, TILE_SIZE, TILE_SIZE)
+		end
+	end
+end
+
 function love.draw()
 	love.graphics.setCanvas(screen)
 	love.graphics.clear(0, 0, 0)
 
+	camera.attach()
+	draw_grid()
 	level.draw()
 	if dbg then
 		level.debug()
 		draw_debug_info()
 	end
+	camera.dettach()
 
 	-- draw "fake" screen buffer to real backbuffer
 	do

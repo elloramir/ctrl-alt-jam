@@ -1,6 +1,6 @@
 WIDTH = 320
-HEIGHT = 240
-SCALE = 2
+HEIGHT = 180
+SCALE = 3
 TILE_SIZE = 16
 DEFAULT_IMAGE_SPEED = 0.1
 
@@ -18,6 +18,10 @@ function math.v2_normalize(x, y)
 		return x/len, y/len
 	end
 	return x, y
+end
+
+function math.lerp(v1, v2, t)
+	return v1 + (v2-v1)*t
 end
 
 -- TODO(ellora): move it to camera module
