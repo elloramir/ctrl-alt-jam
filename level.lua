@@ -1,3 +1,4 @@
+local bump = require("bump")
 local level = {}
 
 function level.init()

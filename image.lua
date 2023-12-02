@@ -6,8 +6,8 @@ function Image:new(filename, fw, fh)
 	self.width = fw or self.img:getWidth()
 	self.height = fh or self.img:getHeight()
 
-    assert(self.img:getWidth()%self.width == 0)
-    assert(self.img:getHeight()%self.height == 0)
+	assert(self.img:getWidth()%self.width == 0)
+	assert(self.img:getHeight()%self.height == 0)
 
 	self.quads = {}
 
