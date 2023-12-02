@@ -20,6 +20,7 @@ end
 function Player:update(dt)
 	Actor.update(self, dt)
 
+	-- follow player position
 	camera.follow(self.x, self.y)
 
 	-- directional controls

@@ -14,9 +14,8 @@ local function sort_entities(a, b)
 end
 
 function level.update(dt)
-    -- randomize entity sort calls will
-    -- made this function lighter and the visual
-    -- effect of it are not noticeable at all.
+    -- random calls makes it lighter and the visual
+    -- gap are not noticeable at all.
     if math.random() > 0.5 then
         table.sort(level.entities, sort_entities)
     end

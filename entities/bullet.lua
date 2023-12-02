@@ -1,3 +1,4 @@
+local camera = require("camera")
 local Actor = require("entities.actor")
 local Bullet = Actor:extend()
 
@@ -12,7 +13,7 @@ function Bullet:new(x, y)
 
 	-- shoot towards mouse position
 	do
-		local mx, my = temp_mouse_pos()
+		local mx, my = camera.mouse_world_pos()
 		local rads = math.atan2(my-y, mx-x)
 
 		self.rotation = rads

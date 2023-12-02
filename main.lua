@@ -6,9 +6,21 @@ local screen
 local dbg = false
 local motion = 1
 
+-- global helper functions
+function math.v2_normalize(x, y)
+	local len = math.sqrt(x*x+y*y)
+	if len > 0 then
+		return x/len, y/len
+	end
+	return x, y
+end
+
+function math.lerp(v1, v2, t)
+	return v1 + (v2-v1)*t
+end
+
 function love.load()
 	-- game frame buffer
-	-- love.graphics.setDefaultFilter("nearest", "nearest")
 	love.graphics.setLineStyle("rough")
 	screen = love.graphics.newCanvas(WIDTH, HEIGHT)
 	screen:setFilter("nearest", "nearest")
@@ -22,9 +34,9 @@ function love.load()
 end
 
 function love.keypressed(key)
-	-- <ESCAPE>: quit the game
+	-- quit the game <ESCAPE>
 	if key == "escape" then love.event.quit() end
-	-- <TAB>: toggle debug
+	-- toggle debug <TAB>
 	if key == "tab" then dbg = not dbg end
 end
 
@@ -32,7 +44,7 @@ function love.update(dt)
 	dt = dt * motion
 	camera.update(dt)
 	level.update(dt)
-end
+ end
 
 local function draw_debug_info()
 	local gc_mb = collectgarbage("count")*1e-3
@@ -61,25 +73,18 @@ end
 function love.draw()
 	love.graphics.setCanvas(screen)
 	love.graphics.clear(0, 0, 0)
-
-	camera.attach()
+    camera.viewport(screen)
+    camera.attach()
 	draw_grid()
 	level.draw()
-	if dbg then
-		level.debug()
-		draw_debug_info()
-	end
+	if dbg then level.debug() end
 	camera.dettach()
 
 	-- draw "fake" screen buffer to real backbuffer
-	do
-		local w, h = love.graphics.getDimensions()
-		local scale = math.min(w/WIDTH, h/HEIGHT)
-		local x = (w - WIDTH * scale) / 2
-		local y = (h - HEIGHT * scale) / 2
-	
-		love.graphics.setCanvas()
-		love.graphics.setColor(1, 1, 1)
-		love.graphics.draw(screen, x, y, 0, scale, scale)
-	end
+    love.graphics.setCanvas()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(screen, camera.view_x,
+        camera.view_y, 0, camera.view_scale, camera.view_scale)
+
+    if dbg then draw_debug_info() end
 end
