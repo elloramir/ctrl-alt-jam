@@ -1,4 +1,5 @@
 local level = require("level")
+local Image = require("image")
 
 local screen
 local dbg = false
@@ -10,7 +11,11 @@ function love.load()
 	love.graphics.setLineStyle("rough")
 	screen = love.graphics.newCanvas(WIDTH, HEIGHT)
 
+	-- load game assets
+	IMG_PLAYER_IDLE = Image("assets/player-idle.png")
+
 	level.init()
+	level.add_entity(require("entities.player")(0, 0))
 end
 
 function love.keypressed(key)
