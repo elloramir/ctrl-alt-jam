@@ -19,3 +19,9 @@ function math.v2_normalize(x, y)
 	end
 	return x, y
 end
+
+-- TODO(ellora): move it to camera module
+function temp_mouse_pos()
+	local mx, my = love.mouse.getPosition()
+	return mx/SCALE, my/SCALE
+end

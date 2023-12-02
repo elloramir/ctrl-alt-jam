@@ -1,3 +1,4 @@
+local level = require("level")
 local Entity = require("entity")
 local Actor = Entity:extend()
 
@@ -28,15 +29,26 @@ end
 
 -- TODO(ellora): add body to bumbp world
 -- NOTE(ellora): offsets are normalized [0, 1]
-function Actor:set_bbox(w, h, ox, oy)
+function Actor:set_body(w, h, ox, oy)
 	self.has_body = true
 	self.body_w = w
 	self.body_h = h
 	self.body_ox = math.floor((px or 0) * w)
 	self.body_oy = math.floor((py or 0) * h)
+	self.speed_x = 0
+	self.speed_y = 0
+end
+
+function Actor:move(dt)
+	self.x = self.x + self.speed_x*dt
+	self.y = self.y + self.speed_y*dt
 end
 
 function Actor:update(dt)
+	if self.has_body and (self.speed_x ~= 0 or self.speed_y ~= 0) then
+		self:move(dt)
+	end
+
 	-- update frame index
 	if self.image and self.frame_speed > 0 then
 		self.frame_timer = self.frame_timer+dt
@@ -65,8 +77,8 @@ end
 function Actor:debug()
 	if self.has_body then
 		love.graphics.setColor(1, 0, 0)
-		love.graphics.rectangle("line", self.x+self.body_x,
-			self.y+self.body_y, self.body_w, self.body_h)
+		love.graphics.rectangle("line", self.x+self.body_ox,
+			self.y+self.body_oy, self.body_w, self.body_h)
 	end
 end
 

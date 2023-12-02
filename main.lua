@@ -13,6 +13,7 @@ function love.load()
 
 	-- load game assets
 	IMG_PLAYER_IDLE = Image("assets/player-idle.png")
+	IMG_HEART_BULLET = Image("assets/heart-bullet.png")
 
 	level.init()
 	level.add_entity(require("entities.player")(0, 0))
