@@ -5,7 +5,7 @@ function Bullet:new(x, y)
 	Actor.new(self, x, y)
 
 	self:set_image(IMG_HEART_BULLET)
-	self:set_body(8, 8)
+	self:set_body(8, 8, -0.5, -0.5)
 
 	self.pivot_x = 0.5
 	self.pivot_y = 0.5

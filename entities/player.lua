@@ -6,9 +6,11 @@ local Player = Actor:extend()
 function Player:new(x, y)
 	Actor.new(self, x, y)
 
-	self:set_image(IMG_PLAYER_IDLE)
 	self.pivot_x = 0.5
 	self.pivot_y = 1
+
+	self:set_image(IMG_PLAYER_IDLE)
+	self:set_body(16, 16, -0.5, -1)
 end
 
 function Player:update(dt)

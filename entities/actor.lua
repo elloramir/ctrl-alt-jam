@@ -27,14 +27,13 @@ function Actor:set_image(img)
 	end
 end
 
--- TODO(ellora): add body to bumbp world
 -- NOTE(ellora): offsets are normalized [0, 1]
 function Actor:set_body(w, h, ox, oy)
 	self.has_body = true
 	self.body_w = w
 	self.body_h = h
-	self.body_ox = math.floor((px or 0) * w)
-	self.body_oy = math.floor((py or 0) * h)
+	self.body_ox = math.floor((ox or 0) * w)
+	self.body_oy = math.floor((oy or 0) * h)
 	self.speed_x = 0
 	self.speed_y = 0
 end

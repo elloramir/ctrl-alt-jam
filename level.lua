@@ -1,9 +1,7 @@
-local bump = require("bump")
 local level = {}
 
 function level.init()
     level.entities = {}
-    level.world = bump.newWorld(TILE_SIZE)
 end
 
 function level.add_entity(entity)

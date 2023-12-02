@@ -16,7 +16,7 @@ function love.load()
 	IMG_HEART_BULLET = Image("assets/heart-bullet.png")
 
 	level.init()
-	level.add_entity(require("entities.player")(0, 0))
+	level.add_entity(require("entities.player")(100, 100))
 end
 
 function love.keypressed(key)
@@ -39,11 +39,13 @@ local function draw_debug_info()
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.print(string.format("fps: %d", fps), 5, 0)
 	love.graphics.print(string.format("mem: %.2f mb", gc_mb), 5, padding)
+	love.graphics.print(string.format("ett: %d", #level.entities), 5, padding*2)
 end
 
 function love.draw()
 	love.graphics.setCanvas(screen)
 	love.graphics.clear(0, 0, 0)
+
 	level.draw()
 	if dbg then
 		level.debug()
