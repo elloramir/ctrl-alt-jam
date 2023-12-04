@@ -1,0 +1,5 @@
+- ✅ renderizar o mapa
+- ✅ sistema de carregar room
+- ✅ fazer o player
+- 🎯 inimigos
+- 🎯 UI

@@ -1,51 +1,91 @@
 local level = {}
 
-function level.init()
-    level.entities = {}
+function level.load(filename)
+	local content = love.filesystem.read(filename)
+
+	level.tiles = {}
+	level.entities = {}
+	level.cols = 20
+	level.rows = 14
+
+	for row in content:gmatch("[^\r\n]+") do
+		for char in row:gmatch(".") do
+			local tile = 0 -- empty as default
+			if char == "#" then tile = 1 end
+
+			table.insert(level.tiles, tile)
+		end
+	end
+
+	level.player = require("entities/player")(100, 100)
+
+	level.add_entity(level.player)
+	assert(#level.tiles == level.cols*level.rows)
 end
 
-function level.add_entity(entity)
-    assert(entity.active)
-    table.insert(level.entities, entity)
+function level.get_tile(x, y)
+	return level.tiles[y*level.cols+x+1]
+end
+
+-- TODO(ellora): make it based on clip area
+function level.mouse_pos()
+	local mx, my = love.mouse.getPosition()
+	local margin_x = (WIDTH - level.cols*TILE_SIZE) / 2
+	local margin_y = (HEIGHT - level.rows*TILE_SIZE) / 2
+
+	return mx/SCALE - margin_x, my/SCALE - margin_y
+end
+
+function level.add_entity(en)
+	assert(en.active)
+	table.insert(level.entities, en)
 end
 
 local function sort_entities(a, b)
-    return a.order < b.order
+	return a.order < b.order
 end
 
 function level.update(dt)
-    -- random calls makes it lighter and the visual
-    -- gap are not noticeable at all.
-    if math.random() > 0.5 then
-        table.sort(level.entities, sort_entities)
-    end
+	if math.random() > 0.7 then
+		table.sort(level.entities, sort_entities)
+	end
 
-    -- backwards loop will prevent index swaps
-    -- and will allow us to avoid newcomings entities
-    -- to be updated on the same frame they are created.
-    for i = #level.entities, 1, -1 do
-        local entity = level.entities[i]
-        if entity.active then
-            entity:update(dt)
-        else
-            table.remove(level.entities, i)
-        end
-    end
+	-- loop entities in reverse order so we can remove them
+	-- without indexing issues
+	for i = #level.entities, 1, -1 do
+		local en = level.entities[i]
+		if en.active then
+			en:update(dt)
+		else
+			table.remove(level.entities, i)
+		end
+	end
 end
 
--- TODO(ellora): camera occlusion
 function level.draw()
-    for _, entity in ipairs(level.entities) do
-        if entity.active then
-            entity:draw()
-        end
-    end
-end
+	local margin_x = (WIDTH - level.cols*TILE_SIZE) / 2
+	local margin_y = (HEIGHT - level.rows*TILE_SIZE) / 2
 
-function level.debug()
-    for _, entity in ipairs(level.entities) do
-        entity:debug()
-    end
+	love.graphics.push()
+	love.graphics.translate(margin_x, margin_y)
+
+	for y = 0, level.rows-1 do
+		for x = 0, level.cols-1 do
+			local tile = level.get_tile(x, y)
+			if tile == 1 then
+				love.graphics.rectangle(
+					"fill", x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE)
+			end
+		end
+	end
+
+	for _, en in ipairs(level.entities) do
+		if en.active then
+			en:draw()
+		end
+	end
+
+	love.graphics.pop()
 end
 
 return level
