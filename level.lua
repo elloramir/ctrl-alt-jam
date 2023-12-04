@@ -8,18 +8,28 @@ function level.load(filename)
 	level.cols = 20
 	level.rows = 14
 
+	local j = 1
 	for row in content:gmatch("[^\r\n]+") do
+		local i = 1
 		for char in row:gmatch(".") do
+			local x = i*TILE_SIZE
+			local y = j*TILE_SIZE
 			local tile = 0 -- empty as default
-			if char == "#" then tile = 1 end
+
+			if char == "#" then tile = 1
+			elseif char == "p" then
+				level.player = require("entities/player")(x, y)
+				level.add_entity(level.player)
+			elseif char == "e" then
+				level.add_entity(require("entities/enemy")(x, y))
+			end
 
 			table.insert(level.tiles, tile)
+			i = i+1
 		end
+		j = j+1
 	end
 
-	level.player = require("entities/player")(100, 100)
-
-	level.add_entity(level.player)
 	assert(#level.tiles == level.cols*level.rows)
 end
 

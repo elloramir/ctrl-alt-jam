@@ -6,6 +6,7 @@ function love.load()
 	love.graphics.setDefaultFilter("nearest", "nearest")
 
 	IMG_PLAYER_IDLE = Image("assets/player-idle.png", 16, 16)
+	IMG_ENEMY_IDLE = Image("assets/enemy-idle.png", 16, 16)
 	IMG_HEART_BULLET = Image("assets/heart-bullet.png", 8, 8)
 
 	level.load("assets/test_room.txt")

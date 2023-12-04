@@ -45,6 +45,10 @@ function Actor:set_image(image, speed)
 	end
 end
 
+function Actor:tile()
+	return math.floor(self.x/TILE_SIZE), math.floor(self.y/TILE_SIZE)
+end
+
 function Actor:overlaps(other, ox, oy)
 	if not other.has_body then return false end
 

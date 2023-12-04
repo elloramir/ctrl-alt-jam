@@ -9,7 +9,7 @@ function Bullet:new(x, y)
 	self.pivot_y = 0.5
 	self:set_image(IMG_HEART_BULLET)
 
-	self.restitution = 0.9
+	self.restitution = 0.5
 
 	-- shoot towards mouse position
 	do
