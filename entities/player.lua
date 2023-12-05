@@ -13,6 +13,16 @@ function Player:new(x, y)
 	self.hearts = 100
 	self.fire_rate = 0.25
 	self.fire_timer = 0
+
+	-- NOTE(ellora): I rarely use tables or other slow
+	-- things inside entities, but this is a special case
+	-- since the game have a small amount of entities and
+	-- player only have 1 instance.
+	self.itens = {}
+end
+
+function Player:add_item(item)
+	table.insert(self.itens, item)
 end
 
 -- NOTE(ellora): last holpe shoot if at least 1 heart

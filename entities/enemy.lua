@@ -1,4 +1,5 @@
 local level = require("level")
+local Item = require("entities.item")
 local Actor = require("entities.actor")
 local Enemy = Actor:extend()
 
@@ -12,6 +13,8 @@ end
 function Enemy:new(x, y)
 	Enemy.super.new(self, x, y, 16, 16, -8, -16)
 
+	-- NOTE(ellora): same problem from is_actor
+	self.is_enemy = true
 	self.state = STATE_NORMAL
 
 	self.pivot_x = 0.5
@@ -37,6 +40,13 @@ function Enemy:hit()
 
 	if self.hearts <= 0 then
 		self:destroy()
+
+		-- decrease enemy count
+		level.enemies = level.enemies-1
+		if level.enemies <= 0 then
+			-- drop key
+			level.add_entity(Item(self.x, self.y, Item.KEY))
+		end
 	end
 end
 

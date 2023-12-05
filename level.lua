@@ -7,6 +7,7 @@ function level.load(filename)
 	level.entities = {}
 	level.cols = 20
 	level.rows = 14
+	level.enemies = 0
 
 	local j = 1
 	for row in content:gmatch("[^\r\n]+") do
@@ -21,6 +22,7 @@ function level.load(filename)
 				level.player = require("entities/player")(x, y)
 				level.add_entity(level.player)
 			elseif char == "e" then
+				level.enemies = level.enemies+1
 				level.add_entity(require("entities/enemy")(x, y))
 			end
 

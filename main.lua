@@ -1,3 +1,4 @@
+local Item = require("entities.item")
 local Image = require("image")
 local level = require("level")
 
@@ -8,6 +9,7 @@ function love.load()
 	IMG_PLAYER_IDLE = Image("assets/player-idle.png", 16, 16)
 	IMG_ENEMY_IDLE = Image("assets/enemy-idle.png", 16, 16)
 	IMG_HEART_BULLET = Image("assets/heart-bullet.png", 8, 8)
+	IMG_ITEM_KEY = Image("assets/item-key.png")
 
 	level.load("assets/test_room.txt")
 end
@@ -33,6 +35,12 @@ function love.draw()
 		-- draw player hearts
 		love.graphics.setColor(1, 0, 0)
 		love.graphics.print("x" .. level.player.hearts, 10, 10)
+
+		-- draw player itens (right coner)
+		love.graphics.setColor(1, 1, 1)
+		for i, item in ipairs(level.player.itens) do
+			Item.draw_icon(item, (WIDTH-26)-(i-1)*26, 10)
+		end
 
 		love.graphics.pop()
 	end
