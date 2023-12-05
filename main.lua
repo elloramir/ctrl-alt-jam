@@ -10,6 +10,7 @@ function love.load()
 	IMG_ENEMY_IDLE = Image("assets/enemy-idle.png", 16, 16)
 	IMG_HEART_BULLET = Image("assets/heart-bullet.png", 8, 8)
 	IMG_ITEM_KEY = Image("assets/item-key.png")
+	IMG_DOOR = Image("assets/door.png", 16, 16)
 
 	level.load("assets/test_room.txt")
 end

@@ -11,6 +11,15 @@ local item_images = {
 function Item:new(x, y, kind)
 	Item.super.new(self, x, y, 16, 16)
 
+	-- prevent it from getting stuck in walls
+	while self:place_meeting() do
+		local dx = self.x < level.player.x and 1 or -1
+		local dy = self.y < level.player.y and 1 or -1
+
+		self.x = self.x + dx
+		self.y = self.y + dy
+	end
+
 	self.kind = kind
 	self:set_image(_G[item_images[kind]])
 	self.timer = 0

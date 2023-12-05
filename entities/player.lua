@@ -25,6 +25,22 @@ function Player:add_item(item)
 	table.insert(self.itens, item)
 end
 
+function Player:find_item(item)
+	for _, i in ipairs(self.itens) do
+		if i == item then return true end
+	end
+	return false
+end
+
+function Player:remove_item(item)
+	for i=#self.itens, 1, -1 do
+		if self.itens[i] == item then
+			table.remove(self.itens, i)
+			return
+		end
+	end
+end
+
 -- NOTE(ellora): last holpe shoot if at least 1 heart
 function Player:pay_hearts(amount)
 	if self.hearts <= 0 then return false end

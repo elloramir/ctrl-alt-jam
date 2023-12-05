@@ -3,8 +3,8 @@
 - ✅ fazer o player
 - ✅ inimigos
 - ✅ ui
-- 🎯 drop de chaves (útilmo inimigo morto)
-- 🎯 porta
+- ✅ drop de chaves (útilmo inimigo morto)
+- ✅ porta
 - 🎯 drop de corações (menos que a vida do inimigo)
 - 🎯 baús
 - 🎯 pathfinding

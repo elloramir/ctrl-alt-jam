@@ -24,6 +24,8 @@ function level.load(filename)
 			elseif char == "e" then
 				level.enemies = level.enemies+1
 				level.add_entity(require("entities/enemy")(x, y))
+			elseif char == "d" then
+				level.add_entity(require("entities/door")(x, y))
 			end
 
 			table.insert(level.tiles, tile)
