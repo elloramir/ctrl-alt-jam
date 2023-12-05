@@ -10,6 +10,10 @@ local function approach(a, b, amount)
 	return a < b and math.min(a+amount, b) or math.max(a-amount, b)
 end
 
+local function rand_float(lower, greater)
+    return lower + math.random()  * (greater - lower);
+end
+
 function Enemy:new(x, y)
 	Enemy.super.new(self, x, y, 16, 16, -8, -16)
 
@@ -53,7 +57,7 @@ function Enemy:hit()
 
 		-- TODO(ellora): visual particles like on god of war
 		-- give player hearts
-		local percent = math.random(20, 25)/100
+		local percent = rand_float(0.2, 0.3)
 		local total_hearts = math.floor(self.initial_hearts*percent)
 		level.player.hearts = level.player.hearts + total_hearts
 	end
