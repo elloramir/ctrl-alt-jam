@@ -18,24 +18,24 @@ function Player:new(x, y)
 	-- things inside entities, but this is a special case
 	-- since the game have a small amount of entities and
 	-- player only have 1 instance.
-	self.itens = {}
+	self.items = {}
 end
 
 function Player:add_item(item)
-	table.insert(self.itens, item)
+	table.insert(self.items, item)
 end
 
 function Player:find_item(item)
-	for _, i in ipairs(self.itens) do
+	for _, i in ipairs(self.items) do
 		if i == item then return true end
 	end
 	return false
 end
 
 function Player:remove_item(item)
-	for i=#self.itens, 1, -1 do
-		if self.itens[i] == item then
-			table.remove(self.itens, i)
+	for i=#self.items, 1, -1 do
+		if self.items[i] == item then
+			table.remove(self.items, i)
 			return
 		end
 	end

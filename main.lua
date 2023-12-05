@@ -39,7 +39,7 @@ function love.draw()
 
 		-- draw player itens (right coner)
 		love.graphics.setColor(1, 1, 1)
-		for i, item in ipairs(level.player.itens) do
+		for i, item in ipairs(level.player.items) do
 			Item.draw_icon(item, (WIDTH-26)-(i-1)*26, 10)
 		end
 

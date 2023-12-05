@@ -27,7 +27,7 @@ function Door:update(dt)
 			level.player:remove_item(Item.KEY)
 		else
 			-- prevent player from going through
-			level.player.y = self.y+16
+			level.player.y = self.y+self.body_h
 		end
 	end
 end
