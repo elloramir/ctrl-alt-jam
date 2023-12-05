@@ -9,12 +9,16 @@ local item_images = {
 }
 
 function Item:new(x, y, kind)
-	Item.super.new(self, x, y-8, 8, 8)
+	Item.super.new(self, x, y, 16, 16)
 
 	self.kind = kind
 	self:set_image(_G[item_images[kind]])
-
 	self.timer = 0
+	self.restitution = 0.5
+	
+	-- TODO(ellora): still that way or bobbing?
+	self.speed_x = math.random(-100, 100)
+	self.speed_y = math.random(-100, 100)
 end
 
 function Item:update(dt)
@@ -25,10 +29,6 @@ function Item:update(dt)
 		level.player:add_item(self.kind)
 		self:destroy()
 	end
-
-	-- bob up and down
-	self.timer = self.timer + dt
-	self.y = self.y - math.sin(self.timer*5)*dt*10
 end
 
 function Item.draw_icon(kind, x, y)
