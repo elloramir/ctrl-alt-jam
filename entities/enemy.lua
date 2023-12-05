@@ -21,11 +21,14 @@ function Enemy:new(x, y)
 	self.pivot_y = 1
 	self:set_image(IMG_ENEMY_IDLE, 0.1)
 
+	self.initial_hearts = 10
+	self.hearts = self.initial_hearts
+
 	self.bounce_speed = 200
 	self.max_speed = 60
 	self.friction = 1000
 	self.acceleration = 500
-	self.hearts = 10
+
 	self.stun_time = 0.25
 	self.stun_timer = 0
 end
@@ -47,6 +50,12 @@ function Enemy:hit()
 			-- drop key
 			level.add_entity(Item(self.x, self.y, Item.KEY))
 		end
+
+		-- TODO(ellora): visual particles like on god of war
+		-- give player hearts
+		local percent = math.random(20, 25)/100
+		local total_hearts = math.floor(self.initial_hearts*percent)
+		level.player.hearts = level.player.hearts + total_hearts
 	end
 end
 
