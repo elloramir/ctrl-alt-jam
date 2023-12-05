@@ -5,6 +5,9 @@ local Bullet = Actor:extend()
 function Bullet:new(x, y)
 	Actor.new(self, x, y, 8, 8, -4, -4)
 
+	-- NOTE(ellora): same as is_actor
+	self.is_bullet = true
+
 	self.pivot_x = 0.5
 	self.pivot_y = 0.5
 	self:set_image(IMG_HEART_BULLET)
@@ -30,6 +33,17 @@ function Bullet:update(dt)
 	if self.max_life_time <= 0 then
 		self:destroy()
 	end
+
+	-- interact with enemies
+	for _, other in ipairs(level.entities) do
+		if other ~= self and not other.is_bullet and other ~= level.player and other.is_actor and other.active then
+			if self:overlaps(other) then
+				other:hit()
+				self:destroy()
+			end
+		end
+	end
+	
 end
 
 return Bullet

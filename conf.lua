@@ -11,3 +11,7 @@ function love.conf(t)
 	t.window.resizable = true
 	t.window.vsync = false
 end
+
+function sign(x)
+	return x == 0 and 0 or (x > 0 and 1 or -1)
+end
