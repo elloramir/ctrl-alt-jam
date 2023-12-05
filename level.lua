@@ -37,13 +37,19 @@ function level.get_tile(x, y)
 	return level.tiles[y*level.cols+x+1]
 end
 
--- TODO(ellora): make it based on clip area
+-- TODO(ellora): cache these values?
 function level.mouse_pos()
+	local w, h = love.graphics.getDimensions()
 	local mx, my = love.mouse.getPosition()
+	local scale = math.min(w / WIDTH, h / HEIGHT)
+	local x = (w - WIDTH * scale) / 2
+	local y = (h - HEIGHT * scale) / 2
 	local margin_x = (WIDTH - level.cols*TILE_SIZE) / 2
 	local margin_y = (HEIGHT - level.rows*TILE_SIZE) / 2
 
-	return mx/SCALE - margin_x, my/SCALE - margin_y
+	return
+		mx/scale - x/scale - margin_x,
+		my/scale - y/scale - margin_y
 end
 
 function level.add_entity(en)

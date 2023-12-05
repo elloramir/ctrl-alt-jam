@@ -30,7 +30,7 @@ end
 function Enemy:hit()
 	self.state = STATE_HIT
 	self.hearts = self.hearts-1
-	
+
 	-- bounce back
 	self.speed_x = self.bounce_speed*(self.x < level.player.x and -1 or 1)
 	self.speed_y = self.bounce_speed*(self.y < level.player.y and -1 or 1)

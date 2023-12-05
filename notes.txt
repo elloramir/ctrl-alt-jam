@@ -1,5 +1,11 @@
 - ✅ renderizar o mapa
 - ✅ sistema de carregar room
 - ✅ fazer o player
-- 🎯 inimigos
-- 🎯 UI
+- ✅ inimigos
+- ✅ ui
+- 🎯 drop de chaves (útilmo inimigo morto)
+- 🎯 porta
+- 🎯 drop de corações (menos que a vida do inimigo)
+- 🎯 baús
+- 🎯 pathfinding
+- 🎯 comportamento dos inimigos

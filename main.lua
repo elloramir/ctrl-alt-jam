@@ -26,7 +26,6 @@ function love.draw()
 		love.graphics.push()
 		love.graphics.translate(x, y)
 		love.graphics.scale(scale)
-		love.graphics.setColor(1, 1, 1)
 
 		-- draw our game here
 		level.draw()
