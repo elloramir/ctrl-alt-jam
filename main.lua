@@ -11,6 +11,7 @@ function love.load()
 	IMG_HEART_BULLET = Image("assets/heart-bullet.png", 8, 8)
 	IMG_ITEM_KEY = Image("assets/item-key.png")
 	IMG_DOOR = Image("assets/door.png", 16, 16)
+	IMG_BLOOD = Image("assets/blood.png", 16, 16)
 
 	level.load("assets/test_room.txt")
 end
@@ -40,7 +41,7 @@ function love.draw()
 		-- draw player itens (right coner)
 		love.graphics.setColor(1, 1, 1)
 		for i, item in ipairs(level.player.items) do
-			Item.draw_icon(item, (WIDTH-26)-(i-1)*26, 10)
+			Item.draw_icon(item, (WIDTH-26)-(i-1)*26, 5)
 		end
 
 		love.graphics.pop()

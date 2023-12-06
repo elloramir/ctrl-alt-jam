@@ -27,8 +27,8 @@ function Item:new(x, y, kind)
 	self.restitution = 0.5
 	
 	-- TODO(ellora): still that way or bobbing?
-	self.speed_x = math.random(-100, 100)
-	self.speed_y = math.random(-100, 100)
+	self.speed_x = random_dir()*100
+	self.speed_y = random_dir()*100
 end
 
 function Item:update(dt)

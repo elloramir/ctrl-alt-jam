@@ -10,10 +10,6 @@ local function approach(a, b, amount)
 	return a < b and math.min(a+amount, b) or math.max(a-amount, b)
 end
 
-local function rand_float(lower, greater)
-    return lower + math.random()  * (greater - lower);
-end
-
 function Enemy:new(x, y)
 	Enemy.super.new(self, x, y, 16, 16, -8, -16)
 

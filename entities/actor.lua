@@ -30,6 +30,7 @@ function Actor:new(x, y, w, h, ox, oy)
 	self.scale_x = 1
 	self.scale_y = 1
 	self.rotation = 0
+	self.alpha = 1
 end
 
 function Actor:set_image(image, speed)
@@ -142,7 +143,7 @@ function Actor:draw()
 	local pivot_x = math.floor(self.image.width * self.pivot_x)
 	local pivot_y = math.floor(self.image.height * self.pivot_y)
 
-	love.graphics.setColor(1, 1, 1)
+	love.graphics.setColor(1, 1, 1, self.alpha)
 	self.image:draw_index(self.frame, self.x, self.y, self.rotation,
 		scale_x, scale_y, pivot_x, pivot_y)
 end

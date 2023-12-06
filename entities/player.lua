@@ -1,4 +1,5 @@
 local level = require("level")
+local Blood = require("entities.blood")
 local Bullet = require("entities.bullet")
 local Actor = require("entities.actor")
 local Player = Actor:extend()
@@ -13,6 +14,9 @@ function Player:new(x, y)
 	self.hearts = 100
 	self.fire_rate = 0.25
 	self.fire_timer = 0
+
+	self.bleeding_rate = 0.2
+	self.bleeding_timer = 0
 
 	-- NOTE(ellora): I rarely use tables or other slow
 	-- things inside entities, but this is a special case
@@ -75,6 +79,16 @@ function Player:update(dt)
 	if self.fire_timer >= self.fire_rate and love.mouse.isDown(1) and self:pay_hearts(1) then
 		self.fire_timer = 0
 		level.add_entity(Bullet(self.x, self.y-self.body_h/2))
+	end
+
+	-- bleeding
+	if self.speed_x ~= 0 or self.speed_y ~= 0 then
+		self.bleeding_timer = self.bleeding_timer + dt
+		if self.bleeding_timer >= self.bleeding_rate then
+			self.bleeding_timer = 0
+			self.hearts = self.hearts - 1
+			level.add_entity(Blood(self.x, self.y))
+		end
 	end
 end
 
