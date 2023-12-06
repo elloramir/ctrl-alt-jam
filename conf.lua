@@ -20,6 +20,10 @@ function random_dir()
 	return math.random() < 0.5 and -1 or 1
 end
 
+function rand_bool()
+	return math.random() < 0.5
+end
+
 function rand_float(lower, greater)
     return lower + math.random()  * (greater - lower);
 end

@@ -57,7 +57,6 @@ function level.mouse_pos()
 end
 
 function level.add_entity(en)
-	assert(en.active)
 	table.insert(level.entities, en)
 end
 
